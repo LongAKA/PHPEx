@@ -168,7 +168,7 @@
   margin: 0 10px;
 }
 .sidebar-menu a.active {
-  background-color: #695cfe;
+  background-color: #0066ff;
   border-radius: 8px;
   color: #fff;
   width: 90%;
@@ -176,7 +176,7 @@
 }
 .sidebar-menu li:hover {
   width: 90%;
-  background-color: #695cfe;
+  background-color: #0066ff;
   border-radius: 8px;
   transition: all 0.4s ease;
 }

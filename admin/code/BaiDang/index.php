@@ -1,7 +1,7 @@
 <?php
     require("../templates/header.php");
     require("../../include/ketnoi.php");
-    $sql = "SELECT * FROM tbl_news a, tbl_account b, tbl_status c WHERE a.Username = b.Username AND a.ID_TT = c.ID_TT AND a.ID_TT ='2'";
+    $sql = "SELECT * FROM tbl_news a, tbl_account b, tbl_status c WHERE a.ID_TK = b.ID_TK AND a.ID_TT = c.ID_TT AND a.ID_TT ='2'";
     $sql_1 = mysqli_query($kn, $sql);
 ?>
     <style>
@@ -120,7 +120,7 @@
         }
     </style>
 <div class="card_table">
-<table class="table datatable" id="myTable">
+<table class="table datatable" id="data">
 <thead>
     <tr>
       <th scope="col">Tên bài viết</th>
@@ -136,13 +136,13 @@
 			 ?>
     
     <tr>
-      <td style="width: 100px"><?php echo $row["TenBaiViet"]?></td>
+      <td style="width: 200px"><?php echo $row["TenBaiViet"]?></td>
       <td><?php echo $row["HoTen"]?></td>
       <td><?php echo $row["ThoiGian"]?></td>
       <td><p class="td_nd"><?php echo $row["NoiDung"]?></p></td>
       <td><?php
                                 if($row["ID_TT"] == "2"){
-                                    echo "<span style='color: green'>Duyệt thành công</span>";
+                                    echo "<span style='color: green'>Duyệt</span>";
                                 }
                             ?>
                                 <br>
@@ -150,11 +150,12 @@
                                     Cập nhật
                                 </button> -->
                         </td>
-      <td class="td_sua">
-            <button type="button" class="btn btn-primary a_sua" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $row['MaTinTuc'] ?>" >
-                <i class="fa-solid fa-eye"></i>
-            </button>&nbsp;
-      </td>
+            <td class="td_sua">
+                <button type="button" class="btn btn-primary a_sua" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $row['MaTinTuc'] ?>" >
+                    <i class="fa-solid fa-eye"></i>
+                </button>&nbsp;
+                <a style="background-color: #1faa00; border: none" class="btn btn-primary a_sua" href="download.php?file=<?php echo $row['NoiDung'] ?>"><i class="fa-solid fa-download"></i></a>
+            </td>
     </tr>
     <?php if(isset($_GET["m"])) : ?>
         <div class="flash-data" data-flashdata="<?= $_GET['m']; ?>"></div>
@@ -285,6 +286,30 @@
 
      })
  }
+</script>
+<script>
+    $(document).ready( function () {
+        $('#data').DataTable({
+            searching: true,
+            paging: true,
+            ordering: true,
+            info: false,
+            "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "Tất cả"]],
+            language: {
+                lengthMenu: "Hiển thị _MENU_ bản ghi",
+                search: "Tìm kiếm ",
+                zeroRecords: "Không có dữ liệu",
+                infoEmpty: "Không có bản ghi nào",
+                info: "Hiển thị _START_ đến _END_ bản ghi trong tổng _TOTAL_ bản ghi",
+                paginate: {
+                    first: "Premier",
+                    previous: "Trước",
+                    next: "Sau",
+                    last: "Dernier"
+                },
+        }
+    });
+    });
 </script>
 <!--the end--->
 <?php

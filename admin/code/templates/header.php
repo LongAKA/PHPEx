@@ -25,7 +25,11 @@
     <link rel="stylesheet" href="../templates/CSS/style.css">
     <link href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
 <input type="checkbox" name="" id="menu-toggle">
@@ -68,14 +72,14 @@
                     </a>
                 </li>
                 <?php if (isset($_SESSION["QuanTri"])) { ?>
-                <li>
+                <li class="list">
                     <a href="../../code/QLNews/">
                         <i class="fa-solid fa-newspaper"></i>
                         <span>Quản lý tin tức</span>
                     </a>
                 </li>
                 <li>
-                    <a href="admin/code/account/">
+                    <a href="../../code/account/">
                         <i class="fa-solid fa-user-plus"></i>
                         <span>Quản lý tài khoản</span>
                     </a>
@@ -86,8 +90,8 @@
                         <span>Quản lý quyền</span>
                     </a>
                 </li> -->
-                <li>
-                    <a href="#">
+                <li class="list">
+                    <a href="../../code/statistical/">
                         <i class="fa-solid fa-chart-column"></i>
                         <span>Thống kê</span>
                     </a>
@@ -95,23 +99,29 @@
                 <?php } ?>
                 <?php if (isset($_SESSION["GiaoVien"])) { ?>
                 <li>
+                    <a href="../account/detail.php">
+                        <i class="fa-solid fa-key"></i>
+                        <span>Đổi mật khẩu</span>
+                    </a>
+                </li>
+                <li class="list">
                     <a href="../News/">
                         <i class="fa-solid fa-file-circle-plus"></i>
                         <span>Thêm tin tức</span>
                     </a>
                 </li>
-                <li>
-                    <a href="../account/detail.php">
-                        <i class="fa-solid fa-user"></i>
-                        <span>Thông tin cá nhân</span>
-                    </a>
-                </li>
                 <?php } ?>
                 <?php if(isset($_SESSION["KiemDuyet"])){?>
-                <li>
+                <li class="list">
                     <a href="../BaiDang/">
                         <i class='bx bxs-news'></i>
                         <span>Quản lý bài đăng</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="../../code/statistical/">
+                        <i class="fa-solid fa-chart-column"></i>
+                        <span>Thống kê</span>
                     </a>
                 </li>
                 <?php } ?>

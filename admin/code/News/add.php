@@ -24,9 +24,13 @@
             font-size: 16px;
             font-weight: 600;
         }
+        .btn-danger {
+            width: 100px;
+        }
         .form_heading {
             width: 90%;
             margin: auto;
+
             border-left: 5px solid #0066ff;
         }
         .form_heading h2{
@@ -75,8 +79,10 @@
             <input type="file" name="txt_noidung" class="form-control" id="file1" required>
         </div>
         <div class="layout-btn">
+            <button type="submit" class="btn btn-danger" onclick="history.back()">Thoát</button>
             <button type="submit" class="btn btn-primary" name="btn_add_news">Thêm</button>
             <button type="submit" class="btn btn-light">Làm mới</button>
+            
         </div>
         <br>
     </form>
@@ -125,7 +131,7 @@
     <!--- the end--->
     <?php
         require("../../include/ketnoi.php");
-        $id = $_SESSION["GiaoVien"];
+        $id = $_SESSION["ID_TK"];
         $sql = "SELECT * FROM tbl_account a, tbl_status b WHERE a.ID_TT = b.ID_TT AND ID_TK ='$id'";
         $sql_1 = mysqli_query($kn, $sql);
         $status ="1";
@@ -147,7 +153,7 @@
             $today = date('Y-m-d H:i'.date_default_timezone_get());
             
             // $id = $_SESSION['user'];
-            $query = "INSERT INTO tbl_news (TenBaiViet,ThoiGian,TheLoai,NoiDung,DungLuong,DungLuongAnh,AmThanh,Username,ID_TT) VALUES ('$name','$today','$tl','$doc','$sizedoc','$number','$audio','$id','$status')";
+            $query = "INSERT INTO tbl_news (TenBaiViet,ThoiGian,TheLoai,NoiDung,DungLuong,DungLuongAnh,AmThanh,ID_TK,ID_TT) VALUES ('$name','$today','$tl','$doc','$sizedoc','$number','$audio','$id','$status')";
             $query_run = mysqli_query($kn, $query);
             move_uploaded_file($audio_tmp_name, '../upload/'.$audio);
             move_uploaded_file($doc_tem_loc, $doc_store);

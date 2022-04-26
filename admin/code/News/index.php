@@ -1,8 +1,8 @@
 <?php
     require("../templates/header.php");
     require("../../include/ketnoi.php");
-    $id = $_SESSION["GiaoVien"];
-    $sql = "SELECT * FROM tbl_news a, tbl_account b, tbl_status c WHERE a.Username = b.Username AND a.ID_TT = c.ID_TT AND a.Username = '$id'";
+    $id = $_SESSION["ID_TK"];
+    $sql = "SELECT * FROM tbl_news a, tbl_account b, tbl_status c WHERE a.ID_TK = b.ID_TK AND a.ID_TT = c.ID_TT AND a.ID_Tk = '$id'";
     $sql_1 = mysqli_query($kn, $sql);
    
     
@@ -10,8 +10,7 @@
     <style>
         .heading-top {
             width: 100%;
-            height: 60px;
-            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            height: 40px;
             border-radius: 8px;
         }
         .heading-top a{
@@ -24,7 +23,7 @@
             text-decoration: none;
             padding-top: 8px;
             border-radius: 4px;
-            margin-left: 15px;
+            margin-left: 7px;
         }
         .table tr th{
             background-color: #0066ff;
@@ -115,6 +114,9 @@
             margin-top: 15px;
             margin-bottom: 15px;
         }
+        .heading-top a{
+            margin-top: 15px
+        }
         .heading_top h2{
             padding-left: 8px;
         }
@@ -134,12 +136,30 @@
         }
     </style>
     <div class="heading-top">
-        <a href="../../code/News/add.php">Thêm bài viết</a>
+        <a href="../../code/News/add.php"><i class="fa-solid fa-plus"></i>&nbsp;Thêm bài viết</a>
     </div>
-    <div class="heading_top">
-        <h2>Bài viết của bạn</h2>
-    </div> 
-    
+    <br>
+    <?php
+    if(isset($_SESSION['status']))
+        {
+            ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Thông báo!</strong> <?= $_SESSION['status']; ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php 
+            unset($_SESSION['status']);
+        }
+       if(isset($_SESSION['status1'])){
+            ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Thông báo!</strong> <?= $_SESSION['status1']; ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php 
+            unset($_SESSION['status1']);
+        }
+    ?>
     <!-- <a href="../News/word.php">Xuất excel</a> -->
 <div class="card_table">
 <table class="table datatable" id="myTable">
@@ -168,13 +188,13 @@
 						<td class="td_nd"><?php echo $row['NoiDung']; ?></td>
                         <td><?php
                                 if($row["ID_TT"] == "1"){
-                                    echo "<span style='color: #0066ff'>Đang chờ duyệt</span>";
+                                    echo "<span style='color: #0066ff; font-weight: 600'>Chờ duyệt</span>";
                                 }
                                 if($row["ID_TT"] == "2"){
-                                    echo "<span style='color: green'>Duyệt thành công</span>";
+                                    echo "<span style='color: green; font-weight: 600'>Duyệt</span>";
                                 }
                                 if($row["ID_TT"] == "3"){
-                                    echo "<span style='color: red'>Không được duyệt</span>";
+                                    echo "<span style='color: red; font-weight: 600'>Không được duyệt</span>";
                                 }
                                 
                             ?>
@@ -184,14 +204,16 @@
                                 </button> -->
                         </td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal<?php $row['MaTinTuc'] ?>">
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal<?php $row['MaTinTuc'] ?>">
                                 <i class="fa-solid fa-eye"></i>
                             </button>
                         </td>
                         <td>
+                            <?php if($row["ID_TT"] == '1') {?>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1<?php $row['MaTinTuc'] ?>">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
+                            <?php } ?>
                         </td>
 					</tr> 
                     <!-- $date = date_create_from_format('d M, Y', '<?php $row['ThoiGian'] ?>'); -->
@@ -219,7 +241,7 @@
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Ngày gửi bài</label>
-                <input type="text" class="form-control" readonly id="exampleInputPassword1" value="<?php echo $newFormat = date_format($date,"Y/m/d H:i:s"); ?>">
+                <input type="text" class="form-control" readonly id="exampleInputPassword1" value="<?php echo $row["ThoiGian"] ?>">
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Nội dung</label>
@@ -248,7 +270,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Thông tin chi tiết</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Form cập nhật bài viết</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">

@@ -33,8 +33,9 @@
 		}
 		else if(mysqli_num_rows($Q2) == 1)
 		{	
+			$row = mysqli_fetch_assoc($Q2);
 			$_SESSION["GiaoVien"] = $user;
-			
+			$_SESSION["ID_TK"] = $row["ID_TK"];
 			echo "<script>
 				$(document).ready(function(){
 					Swal.fire({
